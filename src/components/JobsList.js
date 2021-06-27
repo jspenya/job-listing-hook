@@ -60,7 +60,7 @@ const JobsList = props => {
     setEditing(false);
 
     const qs = require('qs');
-    axios.patch('/api/v1/jobs' + updatedJob.id, qs.stringify(
+    axios.patch('/api/v1/jobs/' + updatedJob.id, qs.stringify(
       {
         job: {
           company: updatedJob.company,
