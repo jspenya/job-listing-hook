@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import NewJobForm from './NewJobForm'
+import Job from './Job'
 
 const JobsList = props => {
   
@@ -33,18 +34,25 @@ const JobsList = props => {
     setJobs([...jobs, job]);
   };
 
-  return(
+  const removeJob = id => {
+    axios.delete( '/api/v1/jobs/' + id )
+        .then(response => {
+          setJobs(jobs.filter(job => job.id !== id))
+        })
+        .catch(error => console.log(error))
+  };
+
+  return (
     <div>
-      <div>
-        <NewJobForm addJob={addJob} initialFormState={initialFormState}/>
-      </div>
       <div className="jobs-list">
-        {jobs.map((job, index) => (
-          <div key={index}>
-            { job.company } | { job.position } | { job.description }
-          </div>
-        )
-        )}
+        <div>
+          <NewJobForm addJob={addJob} initialFormState={initialFormState} />
+        </div>
+        <br/>
+        <hr/>
+        {jobs.map((job, _) => (
+            <Job job={job} removeJob={removeJob} />
+          ))}
       </div>
     </div>
   )
