@@ -77,7 +77,7 @@ const JobsList = props => {
   };
 
   return (
-    <div>
+    <div className="container">
       <div className="jobs-list">
         <div>
           {editing ? (
@@ -92,9 +92,11 @@ const JobsList = props => {
         </div>
         <br/>
         <hr/>
-        {jobs.map((job, _) => (
-            <Job job={job} removeJob={removeJob} editJob={editJob} editing={editing} />
-          ))}
+        <div className="row">
+          {jobs.map((job, _) => (
+              <Job job={job} removeJob={removeJob} editJob={editJob} editing={editing} />
+            ))}
+        </div>
       </div>
     </div>
   )
